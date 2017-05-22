@@ -47,3 +47,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# Security key
+stuttgart-pilot-378c2c3f7e52.json
