@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="PubSubClientDemo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PubSubClientDemo_jar</output-path>
+    <root id="archive" name="PubSubClientDemo.jar">
+      <element id="module-output" name="PubSubClientDemo" />
+      <element id="library" level="project" name="com.google.apis:google-api-services-pubsub:v1-rev356-1.22.0" />
+      <element id="library" level="project" name="com.google.apis:google-api-services-oauth2:v1-rev132-1.22.0" />
+    </root>
+  </artifact>
+</component>

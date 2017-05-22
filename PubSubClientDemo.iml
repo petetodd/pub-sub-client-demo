@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="com.google.apis:google-api-services-pubsub:v1-rev356-1.22.0" level="project" />
+    <orderEntry type="library" name="com.google.apis:google-api-services-oauth2:v1-rev132-1.22.0" level="project" />
   </component>
 </module>
-
