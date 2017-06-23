@@ -70,12 +70,21 @@ public class StuttSub {
      */
     public static void pullMessages()
             throws IOException {
+        System.out.println("pullMessages ");
+        System.out.println("subscriptionName ");
+
+
+
         String subscriptionName = PubsubUtils.getFullyQualifiedResourceName(
                 PubsubUtils.ResourceType.SUBSCRIPTION, "stuttgart-pilot","stuttPull1Sub");
+        System.out.println("subscriptionName : " + subscriptionName);
+
+        System.out.println("pullRequest ");
 
         PullRequest pullRequest = new PullRequest()
                 .setReturnImmediately(false)
                 .setMaxMessages(BATCH_SIZE);
+        System.out.println("client ");
 
         Pubsub client = PubsubUtils.getClient();
 

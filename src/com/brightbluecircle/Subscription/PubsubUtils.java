@@ -72,6 +72,8 @@ public final class PubsubUtils {
     public static String getFullyQualifiedResourceName(
             final ResourceType resourceType, final String project,
             final String resource) {
+        System.out.println("getFullyQualifiedResourceName ");
+
         return String.format("projects/%s/%s/%s", project,
                 resourceType.getCollectionName(), resource);
     }
