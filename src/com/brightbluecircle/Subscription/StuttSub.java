@@ -3,7 +3,9 @@ package com.brightbluecircle.Subscription;
 import com.google.api.services.pubsub.Pubsub;
 import com.google.api.services.pubsub.model.*;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,7 @@ public class StuttSub {
     static final String LOOP_ENV_NAME = "LOOP";
 
     public String testMessge(){
-        System.out.println("testMessge");
+        System.err.println("testMessge");
 
 
         return "TEST";
@@ -70,21 +72,21 @@ public class StuttSub {
      */
     public static void pullMessages()
             throws IOException {
-        System.out.println("pullMessages ");
-        System.out.println("subscriptionName ");
+        System.err.println("pullMessages ");
+        System.err.println("subscriptionName ");
 
 
 
         String subscriptionName = PubsubUtils.getFullyQualifiedResourceName(
                 PubsubUtils.ResourceType.SUBSCRIPTION, "stuttgart-pilot","stuttPull1Sub");
-        System.out.println("subscriptionName : " + subscriptionName);
+        System.err.println("subscriptionName : " + subscriptionName);
 
-        System.out.println("pullRequest ");
+        System.err.println("pullRequest ");
 
         PullRequest pullRequest = new PullRequest()
                 .setReturnImmediately(false)
                 .setMaxMessages(BATCH_SIZE);
-        System.out.println("client ");
+        System.err.println("client ");
 
         Pubsub client = PubsubUtils.getClient();
 
@@ -103,6 +105,42 @@ public class StuttSub {
                             receivedMessage.getMessage();
                     if (pubsubMessage != null
                             && pubsubMessage.decodeData() != null) {
+
+
+
+                        String strMessage =  new String(pubsubMessage.decodeData(),
+                                "UTF-8");
+
+                        String[] stoneParams = new String[4];
+                        stoneParams[0] = "python3";
+                        stoneParams[1] = "stones.py";
+                        stoneParams[2] = "/dev/ttyUSB0";
+                        stoneParams[3] = strMessage;
+                    //    String strMessageOut = "python3 stones.py /dev/ttyUSB0 '" + strMessage + "'";
+                     //   System.out.println(strMessageOut);
+
+                        // Start Py stone script
+                        Runtime rt = Runtime.getRuntime();
+                        try {
+                            Process pr = rt.exec(stoneParams);
+                            System.err.println("PYTHON TRIGGERED XX");
+                            pr.waitFor();
+
+                            BufferedReader reader =
+                                    new BufferedReader(new InputStreamReader(pr.getInputStream()));
+
+                            String line = "";
+                            while ((line = reader.readLine())!= null) {
+                                System.err.append(line + "\n");
+                            }
+
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            System.err.println(ex.getLocalizedMessage());
+                        }
+
+/*
                         System.out.println(
                                 new String(pubsubMessage.decodeData(),
                                         "UTF-8"));
@@ -110,9 +148,10 @@ public class StuttSub {
                         if (pubsubMessage.getAttributes() != null){
                             Map<String, String> map = pubsubMessage.getAttributes();
                             for (Map.Entry<String, String> entry : map.entrySet()) {
-                                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+                              //  System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
                             }
                         }
+                        */
 
 
                     }
@@ -124,10 +163,10 @@ public class StuttSub {
                         .acknowledge(subscriptionName, ackRequest)
                         .execute();
             }
-            System.out.println("IN LOOP: " +LOOP_ENV_NAME);
+           System.err.println("IN LOOP: " +LOOP_ENV_NAME);
 
         } while (LOOP_ENV_NAME != null);
-        System.out.println("OUT LOOP: " +LOOP_ENV_NAME);
+        System.err.println("RESTART required: " +LOOP_ENV_NAME);
     }
 
 

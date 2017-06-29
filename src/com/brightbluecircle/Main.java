@@ -11,21 +11,26 @@ public class Main {
 
     public static void main(String[] args) {
 
+
+
         // Local time
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss z");
         Date d = new Date();
-        System.out.println(df.format(d));
+        System.err.println(df.format(d));
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
-        System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+        System.err.println(dateFormat.format(date)); //2016/11/16 12:08:43
 
         StuttSub subCtrl = new StuttSub();
 
         subCtrl.testMessge();
+
+
+
         try {
             subCtrl.pullMessages();
         } catch (IOException ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.err.println(ex.getLocalizedMessage());
 
 
         }
