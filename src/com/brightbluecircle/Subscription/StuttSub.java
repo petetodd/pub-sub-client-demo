@@ -78,7 +78,7 @@ public class StuttSub {
 
 
         String subscriptionName = PubsubUtils.getFullyQualifiedResourceName(
-                PubsubUtils.ResourceType.SUBSCRIPTION, "stuttgart-pilot","stuttPull1Sub");
+                PubsubUtils.ResourceType.SUBSCRIPTION, "stuttgart-pilot","productionsub");
         System.err.println("subscriptionName : " + subscriptionName);
 
         System.err.println("pullRequest ");
@@ -116,8 +116,9 @@ public class StuttSub {
                         stoneParams[1] = "stones.py";
                         stoneParams[2] = "/dev/ttyUSB0";
                         stoneParams[3] = strMessage;
-                    //    String strMessageOut = "python3 stones.py /dev/ttyUSB0 '" + strMessage + "'";
-                     //   System.out.println(strMessageOut);
+                        // For Debug
+                        String strMessageOut = "python3 stones.py /dev/ttyUSB0 '" + strMessage + "'";
+                        System.out.println(strMessageOut);
 
                         // Start Py stone script
                         Runtime rt = Runtime.getRuntime();
